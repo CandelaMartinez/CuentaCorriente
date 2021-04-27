@@ -67,6 +67,7 @@ public class Cuenta {
     public  void ingreso() {
         double ingreso = Utilidades.pideDouble("dinero que quieres ingresar");
         saldo = saldo + ingreso;
+//         falto algo así: cuenta.setSaldo(saldo);
         System.out.println("el nuevo saldo es: "+saldo);
 
     }
