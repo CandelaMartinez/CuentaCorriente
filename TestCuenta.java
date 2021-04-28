@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package actividad07.ejercicio01.cuentaCorriente;
 
 /**
@@ -11,70 +6,77 @@ package actividad07.ejercicio01.cuentaCorriente;
  */
 public class TestCuenta {
 
+    private static Cuenta[] arrayCuentas;
+
     public static void main(String[] args) {
         int opcion;
         int cuenta;
         int cuentaOrigen;
         int cuentaDestino;
-do{
-        Cuenta primeraCuenta = new Cuenta(5000, "Mariano Cabuti", 1);
+        arrayCuentas = new Cuenta[3];
+        arrayCuentas[0] = new Cuenta(5000, "Mariano Cabuti", 1);
+        arrayCuentas[1] = new Cuenta(2000, "Javier Lopez", 3);
+        arrayCuentas[2] = new Cuenta(2000, "Javier Lopez", 3);
 
-        Cuenta segundaCuenta = new Cuenta(8000, "Jimena Priore", 2);
+        do {
+            do {
+                System.out.println("----------------------------------------------------");
+                System.out.println("1- CONSULTA DE SALDO");
+                System.out.println("2- INGRESO DE DINERO");
+                System.out.println("3- RETIRO DE DINERO");
+                System.out.println("4- REALIZAR TRANSFERENCIA");
+                System.out.println("5- FINALIZAR");
 
-        Cuenta terceraCuenta = new Cuenta(2000, "Javier Lopez", 3);
+                opcion = Utilidades.pideEntero("Elige la operacion que deseas realizar");
 
-        Cuenta arrayCuentas[] = new Cuenta[3];
+                if (opcion < 0 || opcion > 5) {
+                    System.out.println("************************************************************");
+                    System.out.println("OPCION INVALIDA! debes elegir entre las opciones que te di!");
+                }
 
-        arrayCuentas[0] = primeraCuenta;
-        arrayCuentas[1] = segundaCuenta;
-        arrayCuentas[2] = terceraCuenta;
+            } while (opcion < 0 || opcion > 5);
 
-        System.out.println("1- CONSULTA DE SALDO");
-        System.out.println("2- INGRESO DE DINERO");
-        System.out.println("3- RETIRO DE DINERO");
-        System.out.println("4- REALIZAR TRANSFERENCIA");
-        System.out.println("5- FINALIZAR");
+            switch (opcion) {
+                case 1:
+                    cuenta = Cuenta.eligeCuenta();
+                    System.out.println("----------------------------------------------------");
+                    System.out.println("El saldo de la cuenta perteneciente a: "+arrayCuentas[cuenta -1].getTitular()+" es: "+arrayCuentas[cuenta - 1].getSaldo()+" euros");
 
-        opcion = Utilidades.pideEntero("elige la operacion que deseas realizar");
+                    break;
+                case 2:
+                    cuenta = Cuenta.eligeCuenta();
+                    arrayCuentas[cuenta - 1].ingreso();
 
-        switch (opcion) {
-            case 1:
-                cuenta = Cuenta.eligeCuenta();
-                System.out.println(arrayCuentas[cuenta - 1].getSaldo());
+                    break;
 
-                break;
-            case 2:
-                cuenta = Cuenta.eligeCuenta();
-                arrayCuentas[cuenta - 1].ingreso();
+                case 3:
 
-                break;
+                    cuenta = Cuenta.eligeCuenta();
+                    arrayCuentas[cuenta - 1].egreso();
 
-            case 3:
+                    break;
 
-                cuenta = Cuenta.eligeCuenta();
-                arrayCuentas[cuenta - 1].egreso();
+                case 4:
+                    Cuenta.menuCuentas();
+                    cuentaOrigen = Utilidades.pideEntero("Cuenta de origen");
+                    Cuenta.menuCuentas();
+                    cuentaDestino = Utilidades.pideEntero("Cuenta destino");
+                    double dineroTransferir = Utilidades.pideDouble("Importe a transferir");
 
-                break;
+                    arrayCuentas[cuentaOrigen - 1].egreso2(dineroTransferir);
+                    arrayCuentas[cuentaDestino - 1].ingreso2(dineroTransferir);
 
-            case 4:
-                Cuenta.menuCuentas();
-                cuentaOrigen = Utilidades.pideEntero("dime la cuenta de origen");
-                Cuenta.menuCuentas();
-                cuentaDestino = Utilidades.pideEntero("dime la cuenta destino");
-                double dineroTransferir = Utilidades.pideDouble("importe a transferir");
+                    break;
 
-                arrayCuentas[cuentaOrigen - 1].egreso2(dineroTransferir);
-                arrayCuentas[cuentaDestino - 1].ingreso2(dineroTransferir);
+                case 5:
+                    System.out.println("************************************************************");
+                    System.out.println("Gracias por usar nuestros servicios. Adios.");
+                    System.out.println("************************************************************");
 
-                break;
-                
-            case 5:
-                System.out.println("Gracias por usar nuestros servicios. Adios.");
+                    return;
+            }
 
-                return;
-        }
-
-    }while(opcion!=5);
-}
+        } while (opcion != 5);
+    }
 
 }

@@ -8,10 +8,10 @@ public class Cuenta {
 
     //VARIABLES DE CLASE: defino las variables de clase como private asi no se pueden modificar 
     //desde otras clases, solo accedere a ellas con los metodos getter y setter
-    public int numeroCuenta;
-
-    public  double saldo;
-    public String nombreTitular;
+    // numeroCuenta es final asi no se puede modificar, es fijo para cada objeto
+    private final int numeroCuenta;
+    private double saldo;
+    private String nombreTitular;
 
     //CONSTRUCTOR: defino el constructor como public para poder acceder desde otras clases
     //e instanciar objetos de la clase Cuenta
@@ -23,9 +23,8 @@ public class Cuenta {
         this.nombreTitular = nombreTitular;
     }
 
-    /**
-     * *************************************************************************
-     */
+    // **************************************************************************
+    //Getters y Setters
     public String getTitular() {
         return nombreTitular;
     }
@@ -48,9 +47,8 @@ public class Cuenta {
 
     }
 
-    /**
-     * **************************************************************************
-     */
+    //***************************************************************************
+    //funcion que imprime el menu de opciones de cuentas
     public static void menuCuentas() {
         System.out.println("1- primera cuenta");
         System.out.println("2- segunda cuenta");
@@ -58,39 +56,65 @@ public class Cuenta {
 
     }
 
+    //funcion que llama a la funcion pideEntero
     public static int eligeCuenta() {
+        int cuenta;
         menuCuentas();
-        int cuenta = Utilidades.pideEntero("numero cuenta: ");
+        do {
+            System.out.println("----------------------------------------------------");
+            cuenta = Utilidades.pideEntero("Numero cuenta: ");
+
+            if (cuenta < 1 || cuenta > 3) {
+                System.out.println("************************************************************");
+                System.out.println("OPCION INVALIDA! debes elegir entre las opciones que te di!");
+            }
+        } while (cuenta < 1 || cuenta > 3);
         return cuenta;
     }
 
-    public  void ingreso() {
-        double ingreso = Utilidades.pideDouble("dinero que quieres ingresar");
+    public void ingreso() {
+        System.out.println("----------------------------------------------------");
+        double ingreso = Utilidades.pideDouble("Cuanto dinero que quieres ingresar");
         saldo = saldo + ingreso;
-        System.out.println("el nuevo saldo es: "+saldo);
+        setSaldo(saldo);
+
+        System.out.println("************************************************************");
+        System.out.println("El nuevo saldo es: " + saldo+ " euros.");
 
     }
 
-    public  void egreso(){
-        double egreso= Utilidades.pideDouble("dinero que quieres egresar: ");
+    public void egreso() {
+        double debe;
+        System.out.println("----------------------------------------------------");
+        double egreso = Utilidades.pideDouble("dinero que quieres egresar: ");
         saldo = saldo - egreso;
-         System.out.println("el nuevo saldo es: "+saldo);
+        setSaldo(saldo);
+        System.out.println("************************************************************");
+        System.out.println("el nuevo saldo es: " + saldo+ " euros.");
+        if (saldo<0){
+            debe= saldo*-1;
+            System.out.println("Ha retirado mas dinero del que tenia en la cuenta. Usted le debe al banco:"+ debe+ " euros.");
+        }
+        
     }
-    
-   public void ingreso2(double importe){
-       saldo=saldo + importe;
-       System.out.println("el saldo de la cuenta origen es: "+saldo);
-   }
-       public void egreso2(double importe){
-           saldo=saldo-importe;
-           System.out.println("el saldo de la cuenta destino es: "+saldo);
-       }
-        
-        
-        
-    
-    
-    
+
+    public void ingreso2(double importe) {
+        saldo = saldo + importe;
+        setSaldo(saldo);
+        System.out.println("************************************************************");
+        System.out.println("El saldo de la cuenta destino es: " + saldo+ " euros.");
+    }
+
+    public void egreso2(double importe) {
+        double debe;
+        saldo = saldo - importe;
+        setSaldo(saldo);
+        System.out.println("************************************************************");
+        System.out.println("El saldo de la cuenta de origen es: " + saldo+ " euros.");
+         if (saldo<0){
+            debe= saldo*-1;
+            System.out.println("Ha retirado mas dinero del que tenia en la cuenta. Usted le debe al banco:"+ debe+ " euros.");
+        }
+    }
+
 }
-
-

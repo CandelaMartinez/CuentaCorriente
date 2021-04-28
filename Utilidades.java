@@ -57,5 +57,25 @@ public class Utilidades {
         
         return valorDouble;
     }
+         public static String pideFrase(String pregunta) {
+        String frase = "";
+        boolean esFrase = false;
+
+        do {
+
+            System.out.println(pregunta);
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                frase = br.readLine();
+                esFrase = true;
+            } catch (IOException e) {
+                System.out.println("error del tipo entrada");
+            } catch (Exception e2) {
+                System.out.println("este error: " + e2.getMessage());
+            }
+        } while (esFrase == false);
+
+        return frase;
+    }
     
 }
