@@ -76,10 +76,15 @@ public class Cuenta {
         System.out.println("----------------------------------------------------");
         double ingreso = Utilidades.pideDouble("Cuanto dinero que quieres ingresar");
         saldo = saldo + ingreso;
+<<<<<<< HEAD
         setSaldo(saldo);
 
         System.out.println("************************************************************");
         System.out.println("El nuevo saldo es: " + saldo+ " euros.");
+=======
+//         falto algo así: cuenta.setSaldo(saldo);
+        System.out.println("el nuevo saldo es: "+saldo);
+>>>>>>> d32c4a7044cc80cfdbbd9a6c65bb0b86696455ca
 
     }
 
